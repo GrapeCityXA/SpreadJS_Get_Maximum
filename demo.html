@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>grapecity_spreadJS_demo</title>
+    <script src="jquery_3.1.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="gc.spread.sheets.excel2013white.14.2.2.css" type="text/css">
+    <script src="gc.spread.sheets.all.14.2.2.min.js" type="text/javascript"></script>
+    <script src="gc.spread.excelio.14.2.2.min.js" type="text/javascript"></script>
+    <script src="https://cdn.grapecity.com.cn/spreadjs/scripts/FileSaver.min.js" type="text/javascript"></script>
+    <script src="gc.spread.sheets.resources.zh.14.2.2.min.js" type="text/javascript"></script>
+    <script src="gc.spread.sheets.print.14.2.2.min.js" type="text/javascript"></script>
+    <script src="gc.spread.sheets.pdf.14.2.2.min.js" type="text/javascript"></script>
+    <script src="gc.spread.sheets.charts.14.2.2.min.js" type="text/javascript"></script>
+    <script src="v14.js" type="text/javascript"></script>
+    <style type="text/css">
+        #ss {
+            height: 400px;
+            width: 100%
+        }
+        p {
+            color: #204d74;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="log"></div>
+    <p>列宽根据单元格内容及列头内容自适应</p>
+    <div id="ss"></div>
+    <script type="text/javascript">
+        GC.Spread.Common.CultureManager.culture('zh-cn');
+        var spread = new GC.Spread.Sheets.Workbook(document.getElementById('ss'));
+        var sheet = spread.getActiveSheet();
+        
+        sheet.setValue(0, 3, '列头有很多很多很多内容', GC.Spread.Sheets.SheetArea.colHeader);
+        sheet.setValue(0, 3, '测试', GC.Spread.Sheets.SheetArea.viewport);
+        sheet.setValue(0, 5, '测试列头标题', GC.Spread.Sheets.SheetArea.colHeader);
+        sheet.setValue(0, 5, '双击列之间的竖线实现自适应', GC.Spread.Sheets.SheetArea.viewport);
+        
+        /** 
+        * AutoFitType可取值cell,cellWithHeader
+        * cell： 列宽取该列单元格内容长度最大值
+        * cellWithHeader: 列宽取单元格内容及列头内容长度的最大值
+        */
+        spread.options.autoFitType = GC.Spread.Sheets.AutoFitType.cellWithHeader;
+        sheet.autoFitColumn(3); //参数为列头索引
+        sheet.autoFitColumn(5);
+    </script>
+</body>
+
+</html>
